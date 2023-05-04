@@ -2,6 +2,10 @@ from tkinter import *
 from customtkinter import *
 from PIL import Image,ImageTk
 from MySQLfunctions import *
+from MainMenu import *
+global bg
+global photo1
+global menu
 # Create the main window and run the app
 root = CTk()
 root.title("Quizzify")
@@ -10,19 +14,29 @@ root.resizable(False,False)
 root.iconbitmap("C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\iconfilemain\\favicon.ico")
 set_appearance_mode("system")
 set_default_color_theme("dark-blue") 
+
 bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\background2.png")
 
 # Get the entered username and password using get function
 def login():
     username = username_entry.get()
     email = email_entry.get()
-    write(username,email)
-    menu=CTkToplevel()
-    menu.title("Menu")
-    menu.geometry("680x620")
+    #write(username,email)
     root.withdraw()
-def close(window):
-    pass
+    mainmenu()
+
+def mainmenu():
+    menu=CTkToplevel(root)
+    menu.title("Main Menu")
+    menu.geometry("680x620")
+    menu.resizable(False,False)    
+    menu.iconbitmap('C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\iconfilemain\\favicon.ico')
+    image1=Image.open('C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\background.png')
+    photo1=ImageTk.PhotoImage(image1)
+    label1=Label(menu,image=photo1)
+    label1.image=photo1
+    label1.pack()
+    closebtn=CTkButton(menu,text="close",command=lambda:[menu.destroy(),root.quit()]).place(relx=0.5,rely=0.5)
 
 #create label
 mylabel=Label(root,image=bg)
@@ -43,5 +57,4 @@ email_entry.place(relx=0.47,rely=0.45)
 login_button = CTkButton(root, text="Login", command=login,fg_color="#7b27a1",border_width=1,border_color="#feaf88",height=35,width=105, font=("helvetica",17))
 login_button.place(relx=0.40,rely=0.54)
 
-root.protocol("WM_DELETE_WINDOW",login)
 root.mainloop()
