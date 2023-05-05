@@ -5,7 +5,6 @@ from MySQLfunctions import *
 from MainMenu import *
 global bg
 global photo1
-global menu
 # Create the main window and run the app
 root = CTk()
 root.title("Quizzify")
@@ -36,7 +35,10 @@ def mainmenu():
     label1=Label(menu,image=photo1)
     label1.image=photo1
     label1.pack()
-    closebtn=CTkButton(menu,text="close",command=lambda:[menu.destroy(),root.quit()]).place(relx=0.5,rely=0.5)
+    playbtn=CTkButton(menu,text="Play").place(relx=0.4,rely=0.3)
+    leadbtn=CTkButton(menu,text="Leaderboard").place(relx=0.4,rely=0.4)
+    trivbtn=CTkButton(menu,text="Trivia").place(relx=0.4,rely=0.5)
+    exitbtn=CTkButton(menu,text="Exit",command=lambda:[menu.destroy(),root.quit()]).place(relx=0.4,rely=0.6)
 
 #create label
 mylabel=Label(root,image=bg)
