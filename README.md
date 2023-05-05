@@ -32,9 +32,9 @@ if 3 is chosen :
 if 4 is chosen : 
      a)quiz terminates
 
-DATABASE will have 2 tables :
-1. the table which will consist of the current users 
-2. a table with data of all users till date
+DATABASE will have 1 table :
+
+1. a table with data of all users till date
 
 contents of the tables:
 name(varchar) email(varchar) score(int) percentage(int) 
