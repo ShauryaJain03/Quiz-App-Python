@@ -5,6 +5,7 @@ from MySQLfunctions import *
 from MainMenu import *
 global bg
 global photo1
+global photo2
 # Create the main window and run the app
 root = CTk()
 root.title("Quizzify")
@@ -35,10 +36,24 @@ def mainmenu():
     label1=Label(menu,image=photo1)
     label1.image=photo1
     label1.pack()
-    playbtn=CTkButton(menu,text="Play").place(relx=0.4,rely=0.3)
-    leadbtn=CTkButton(menu,text="Leaderboard").place(relx=0.4,rely=0.4)
-    trivbtn=CTkButton(menu,text="Trivia").place(relx=0.4,rely=0.5)
-    exitbtn=CTkButton(menu,text="Exit",command=lambda:[menu.destroy(),root.quit()]).place(relx=0.4,rely=0.6)
+    playbtn=CTkButton(menu,text="Play",fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.3)
+    leadbtn=CTkButton(menu,text="Leaderboard",fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.4)
+    trivbtn=CTkButton(menu,text="Trivia",command=trivia,fg_color="#97e2e8",border_width=1,border_color="#feaf88",text_color="#000",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.5)
+    exitbtn=CTkButton(menu,text="Exit",command=lambda:[menu.destroy(),root.quit()],fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.6)
+
+def trivia():
+    trivia_page=Toplevel(root)
+    trivia_page.title("DID YOU KNOW?")
+    trivia_page.geometry("680x471") 
+    trivia_page.iconbitmap('C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\iconfilemain\\favicon.ico')
+    image2=Image.open("C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\mainpage.jpg")
+    photo2=ImageTk.PhotoImage(image2)
+    label2=Label(trivia_page,image=photo2)
+    label2.image=photo2
+    label2.pack()
+    triv_close=CTkButton(trivia_page,text="Close",command=trivia_page.destroy,height=30,width=100,text_color="#000", font=("helvetica",18))
+    triv_close.place(relx=0.4,rely=0.9)
+
 
 #create label
 mylabel=Label(root,image=bg)
