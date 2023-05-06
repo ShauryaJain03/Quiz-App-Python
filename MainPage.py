@@ -3,6 +3,7 @@ from customtkinter import *
 from PIL import Image,ImageTk
 from MySQLfunctions import *
 from MainMenu import *
+from trivia import *
 global bg
 global photo1
 global photo2
@@ -25,6 +26,9 @@ def login():
     root.withdraw()
     mainmenu()
 
+
+
+
 def mainmenu():
     menu=CTkToplevel(root)
     menu.title("Main Menu")
@@ -41,19 +45,30 @@ def mainmenu():
     trivbtn=CTkButton(menu,text="Trivia",command=trivia,fg_color="#97e2e8",border_width=1,border_color="#feaf88",text_color="#000",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.5)
     exitbtn=CTkButton(menu,text="Exit",command=lambda:[menu.destroy(),root.quit()],fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.6)
 
+def display_random_fact():
+    random_fact = random.choice(facts)
+    fact_var.set(random_fact)    
+
+
 def trivia():
+    global trivia_page
     trivia_page=Toplevel(root)
     trivia_page.title("DID YOU KNOW?")
     trivia_page.geometry("680x471") 
+    trivia_page.resizable(False,False)
     trivia_page.iconbitmap('C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\iconfilemain\\favicon.ico')
     image2=Image.open("C:\\Users\\shaur\\OneDrive\\Desktop\\Project\\Images\\mainpage.jpg")
     photo2=ImageTk.PhotoImage(image2)
     label2=Label(trivia_page,image=photo2)
     label2.image=photo2
     label2.pack()
-    triv_close=CTkButton(trivia_page,text="Close",command=trivia_page.destroy,height=30,width=100,text_color="#000", font=("helvetica",18))
+    global fact_label
+    global fact_var
+    fact_var = StringVar()
+    fact_label=CTkLabel(trivia_page,textvariable=fact_var,text_color="black",fg_color="aqua").place(relx=0.5,rely=0.5)
+    triv_close=CTkButton(trivia_page,text="Close",command=trivia_page.destroy,height=30,width=100,text_color="#fff", font=("helvetica",18))
     triv_close.place(relx=0.4,rely=0.9)
-
+    generate_button=CTkButton(trivia_page,text="generate",command=display_random_fact).place(relx=0.7,rely=0.9)
 
 #create label
 mylabel=Label(root,image=bg)
