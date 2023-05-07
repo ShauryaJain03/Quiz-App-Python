@@ -4,7 +4,7 @@ import questions
 from tkinter import messagebox
 
 def display_questions():
-    selected_questions = random.sample(questions.all_questions, 3)
+    selected_questions = random.sample(questions.all_questions, 5)
     question_index = 0
     score = 0
 
