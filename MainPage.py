@@ -28,29 +28,25 @@ def login():
     mainmenu()
 
 def genre():
-    gkimage=PhotoImage(file="")
-    scienceimage=PhotoImage(file="")
-    sportsimage=PhotoImage(file="")
-    hisimage=PhotoImage(file="")
-    culimage=PhotoImage(file="")
-    miximage=PhotoImage(file="")
+    import play
     genrepage=CTkToplevel(root)
     genrepage.title("Choose your genre")
     genrepage.geometry("680x620")
-    genrepage.resizable(False,False)    
+    genrepage.resizable(False,False)
+    genrepage.attributes("-topmost", True)
     genrepage.iconbitmap("C:\\Users\\shaur\\OneDrive\Desktop\\DS Project\\Images\\iconfilemain\\favicon.ico")
     image3=Image.open("C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\background.png")
     photo3=ImageTk.PhotoImage(image3)
     label3=Label(genrepage,image=photo3)
     label3.image=photo3
     label3.pack()
-    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150, font=("helvetica",18),image=gkimage, compound="left").place(relx=0.2,rely=0.3)
-    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18),image=scienceimage, compound="left").place(relx=0.55,rely=0.3)
-    sports_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18), image=sportsimage,compound="left").place(relx=0.2,rely=0.5)
-    his_btn=CTkButton(genrepage,text="Cultural",height=80,width=150,font=("helvetica",18),image=hisimage, compound="left").place(relx=0.55,rely=0.5)
-    cultural_btn=CTkButton(genrepage,text="Sports",height=80,width=150, font=("helvetica",18),image=culimage, compound="left").place(relx=0.2,rely=0.7)
-    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18),image=miximage, compound="left").place(relx=0.55,rely=0.7)
-
+    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150,font=("helvetica",18),command=lambda:play.gk()).place(relx=0.2,rely=0.25)
+    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18)).place(relx=0.55,rely=0.25)
+    sports_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18)).place(relx=0.2,rely=0.45)
+    his_btn=CTkButton(genrepage,text="Cultural",height=80,width=150,font=("helvetica",18)).place(relx=0.55,rely=0.45)
+    cultural_btn=CTkButton(genrepage,text="Sports",height=80,width=150, font=("helvetica",18)).place(relx=0.2,rely=0.65)
+    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18)).place(relx=0.55,rely=0.65)
+    close_btn=CTkButton(genrepage,text="Close",height=50,width=120, command=genrepage.destroy,font=("helvetica",18)).place(relx=0.4,rely=0.85)
 
 
 def mainmenu():
