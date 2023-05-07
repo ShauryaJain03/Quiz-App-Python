@@ -28,6 +28,12 @@ def login():
     mainmenu()
 
 def genre():
+    gkimage=PhotoImage(file="")
+    scienceimage=PhotoImage(file="")
+    sportsimage=PhotoImage(file="")
+    hisimage=PhotoImage(file="")
+    culimage=PhotoImage(file="")
+    miximage=PhotoImage(file="")
     genrepage=CTkToplevel(root)
     genrepage.title("Choose your genre")
     genrepage.geometry("680x620")
@@ -37,7 +43,15 @@ def genre():
     photo3=ImageTk.PhotoImage(image3)
     label3=Label(genrepage,image=photo3)
     label3.image=photo3
-    label3.pack()      
+    label3.pack()
+    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150, font=("helvetica",18),image=gkimage, compound="left").place(relx=0.2,rely=0.3)
+    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18),image=scienceimage, compound="left").place(relx=0.55,rely=0.3)
+    sports_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18), image=sportsimage,compound="left").place(relx=0.2,rely=0.5)
+    his_btn=CTkButton(genrepage,text="Cultural",height=80,width=150,font=("helvetica",18),image=hisimage, compound="left").place(relx=0.55,rely=0.5)
+    cultural_btn=CTkButton(genrepage,text="Sports",height=80,width=150, font=("helvetica",18),image=culimage, compound="left").place(relx=0.2,rely=0.7)
+    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18),image=miximage, compound="left").place(relx=0.55,rely=0.7)
+
+
 
 def mainmenu():
     menu=CTkToplevel(root)
