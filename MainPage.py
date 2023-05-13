@@ -28,7 +28,12 @@ def login():
     mainmenu()
 
 def genre():
-    import play
+    import GK
+    from Science import science
+    import Sports
+    import History
+    import Cultural
+    import Mixed
     genrepage=CTkToplevel(root)
     genrepage.title("Choose your genre")
     genrepage.geometry("680x620")
@@ -40,12 +45,12 @@ def genre():
     label3=Label(genrepage,image=photo3)
     label3.image=photo3
     label3.pack()
-    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150,font=("helvetica",18),command=lambda:play.gk()).place(relx=0.2,rely=0.25)
-    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18)).place(relx=0.55,rely=0.25)
-    sports_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18)).place(relx=0.2,rely=0.45)
-    his_btn=CTkButton(genrepage,text="Cultural",height=80,width=150,font=("helvetica",18)).place(relx=0.55,rely=0.45)
-    cultural_btn=CTkButton(genrepage,text="Sports",height=80,width=150, font=("helvetica",18)).place(relx=0.2,rely=0.65)
-    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18)).place(relx=0.55,rely=0.65)
+    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150,font=("helvetica",18),command=lambda:GK.gk()).place(relx=0.2,rely=0.25)
+    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18),command=science).place(relx=0.55,rely=0.25)
+    sports_btn=CTkButton(genrepage,text="Sports",height=80,width=150,font=("helvetica",18),command=lambda:Sports.sports()).place(relx=0.2,rely=0.45)
+    his_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18),command=lambda:History.history()).place(relx=0.55,rely=0.45)
+    cultural_btn=CTkButton(genrepage,text="Cultural",height=80,width=150, font=("helvetica",18),command=lambda:Cultural.cultural()).place(relx=0.2,rely=0.65)
+    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18),command=lambda:Mixed.mixed()).place(relx=0.55,rely=0.65)
     close_btn=CTkButton(genrepage,text="Close",height=50,width=120, command=genrepage.destroy,font=("helvetica",18)).place(relx=0.4,rely=0.85)
 
 
@@ -63,8 +68,7 @@ def mainmenu():
     playbtn=CTkButton(menu,text="Play",fg_color="#97e2e8",border_width=1,command=genre,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.3)
     leadbtn=CTkButton(menu,text="Leaderboard",fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.4)
     trivbtn=CTkButton(menu,text="Trivia",command=trivia,fg_color="#97e2e8",border_width=1,border_color="#feaf88",text_color="#000",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.5)
-    exitbtn=CTkButton(menu,text="Exit",command=lambda:[menu.destroy(),root.quit()],fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.6)
-
+    exitbtn=CTkButton(menu,text="Exit",command=lambda:[menu.destroy(),root.destroy],fg_color="#97e2e8",border_width=1,text_color="#000",border_color="#feaf88",height=40,width=115, font=("helvetica",18)).place(relx=0.4,rely=0.6)
 
 
 def display_random_fact():
@@ -92,8 +96,8 @@ def trivia():
     generate_button=CTkButton(trivia_page,text="Generate",height=30,width=100,command=display_random_fact,font=("helvetica",18)).place(relx=0.25,rely=0.9)
 
 #create label
-mylabel=Label(root,image=bg)
-mylabel.place(x=0,y=0,relwidth=1,relheight=1)
+imglabel=Label(root,image=bg)
+imglabel.place(x=0,y=0,relwidth=1,relheight=1)
 
 # Create username label and entry field
 CTkLabel(root, text="Username",anchor=CENTER,fg_color="#feaf88",width=100,height=30,font=("helvetica",16),corner_radius=20,text_color="#0b2954",).place(relx=0.3,rely=0.35)
