@@ -24,7 +24,7 @@ def login():
     username = username_entry.get()
     email = email_entry.get()
     #write(username,email)
-    root.withdraw()
+    #root.withdraw()
     mainmenu()
 
 def genre():
