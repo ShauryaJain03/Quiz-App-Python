@@ -6,11 +6,11 @@ from tkinter import messagebox
 from CTkMessagebox import CTkMessagebox
 import sc_questions
 def end_quiz():
-        msg=CTkMessagebox(title="Quiz",  option_1="End", option_2="See analysis",message="Quiz completed!\nYour score: {}".format(final_score))
+        msg=CTkMessagebox(title="Quiz",  option_1="End", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=1)
         if msg.get()=="End":
-            print(1)
+            sciencespage.destroy()
         else:
-            print(2)
+            pass
 
 
 def display_questions():
@@ -47,7 +47,7 @@ def display_questions():
             final_score=score
             print(final_score)
             end_quiz()
-            window.destroy()
+            #window.destroy()
 
     window = CTkToplevel(sciencespage)
     window.title("Quiz")
