@@ -3,7 +3,16 @@ from customtkinter import *
 from PIL import Image,ImageTk
 import random
 from tkinter import messagebox
+from CTkMessagebox import CTkMessagebox
 import sc_questions
+def end_quiz():
+        msg=CTkMessagebox(title="Quiz",  option_1="End", option_2="See analysis",message="Quiz completed!\nYour score: {}".format(final_score))
+        if msg.get()=="End":
+            print(1)
+        else:
+            print(2)
+
+
 def display_questions():
     selected_questions = random.sample(sc_questions.all_questions, 6)
     question_index = 0
@@ -37,14 +46,14 @@ def display_questions():
             global final_score
             final_score=score
             print(final_score)
-            messagebox.showinfo("Quiz", "Quiz completed!\nYour score: {}".format(score))
+            end_quiz()
             window.destroy()
 
     window = CTkToplevel(sciencespage)
     window.title("Quiz")
     window.attributes("-topmost", True)
-    window.geometry("900x700")
-    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",20),wraplength=1000,text_color="red",bg_color="white",padx=10,pady=15)
+    window.geometry("1000x650")
+    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",22),wraplength=1000,text_color="red",bg_color="white",padx=10,pady=15)
     question_label.pack(pady=20,anchor="w",padx=10)
 
     options = IntVar()
@@ -52,7 +61,7 @@ def display_questions():
 
     option_buttons = []
     for i in range(4):
-        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="white",border_color="red",fg_color="white",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18))
+        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="white",border_color="red",fg_color="aqua",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18))
         option_button.pack(anchor='w',padx=10,pady=15)
         option_buttons.append(option_button)
 
