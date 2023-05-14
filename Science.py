@@ -3,9 +3,9 @@ from customtkinter import *
 from PIL import Image,ImageTk
 import random
 from tkinter import messagebox
-import questions
+import sc_questions
 def display_questions():
-    selected_questions = random.sample(questions.all_questions, 5)
+    selected_questions = random.sample(sc_questions.all_questions, 6)
     question_index = 0
     score = 0
 
@@ -31,7 +31,7 @@ def display_questions():
             for i, option in enumerate(option_buttons):
                 option.configure(text=selected_questions[question_index][2][i])
 
-            score_label.configure(text="Score: {}".format(score))
+            #score_label.configure(text="Score: {}".format(score))
             
         else:
             global final_score
@@ -42,24 +42,25 @@ def display_questions():
 
     window = CTkToplevel(sciencespage)
     window.title("Quiz")
-
-    question_label = CTkLabel(window, text=selected_questions[question_index][0])
-    question_label.pack(pady=10)
+    window.attributes("-topmost", True)
+    window.geometry("900x700")
+    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",20),wraplength=1000,text_color="red",bg_color="white",padx=10,pady=15)
+    question_label.pack(pady=20,anchor="w",padx=10)
 
     options = IntVar()
     options.set(-1)
 
     option_buttons = []
     for i in range(4):
-        option_button =CTkRadioButton(window, text="", variable=options, value=i)
-        option_button.pack(anchor='w')
+        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="white",border_color="red",fg_color="white",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18))
+        option_button.pack(anchor='w',padx=10,pady=15)
         option_buttons.append(option_button)
 
-    check_button = CTkButton(window, text="Check Answer", command=check_answer)
-    check_button.pack(pady=10)
+    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",16),width=100,height=40)
+    check_button.pack(pady=30)
 
-    score_label = CTkLabel(window, text="Score: 0")
-    score_label.pack()
+    #score_label = CTkLabel(window, text="Score: 0")
+    #score_label.pack()
 
     next_question()
 
@@ -75,9 +76,8 @@ def science():
     set_appearance_mode("system")
     set_default_color_theme("dark-blue") 
     sciencespage.iconbitmap("C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\iconfilemain\\favicon.ico")
-    bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\dark cosmic bac 0.png")
+    bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
     imglabel=Label(sciencespage,image=bg)
     imglabel.place(x=0,y=0,relwidth=1,relheight=1)
-    
-    start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:[display_questions(),sciencespage.quit()],font=("helvetica",18)).place(relx=0.40,rely=0.5)
+    start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",18)).place(relx=0.40,rely=0.5)
     sciencespage.mainloop()
