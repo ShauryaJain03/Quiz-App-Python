@@ -1,4 +1,5 @@
 from tkinter import *
+import time
 from customtkinter import *
 from PIL import Image,ImageTk
 import random
@@ -6,32 +7,42 @@ from tkinter import messagebox
 from CTkMessagebox import CTkMessagebox
 import sc_questions
 def end_quiz():
-        msg=CTkMessagebox(title="Quiz",  option_1="End", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=1)
+        msg=CTkMessagebox(title="Quiz",  option_1="End", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5)
         if msg.get()=="End":
             sciencespage.destroy()
         else:
-            pass
+            print(2)
 
 
 def display_questions():
+    start_time=0
+    total_time=0
     selected_questions = random.sample(sc_questions.all_questions, 6)
     question_index = 0
     score = 0
 
     def check_answer():
         nonlocal score
-
+        nonlocal start_time
+        nonlocal total_time
         selected_option = options.get()
         correct_option = selected_questions[question_index][1]
 
         if selected_option == correct_option:
             score += 1
 
+
+        end_time = time.time()  # Get the current time
+        time_taken = end_time - start_time  # Calculate the time taken
+        total_time+=time_taken   #updates total_time after each question
+        clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))
+        print("Time taken:", time_taken) 
         next_question()
 
     def next_question():
         nonlocal question_index
-
+        nonlocal start_time
+        nonlocal total_time  #this gets the value from the check answer function
         if question_index < len(selected_questions) - 1:
             question_index += 1
             question_label.configure(text=selected_questions[question_index][0])
@@ -40,12 +51,16 @@ def display_questions():
             for i, option in enumerate(option_buttons):
                 option.configure(text=selected_questions[question_index][2][i])
 
+
             #score_label.configure(text="Score: {}".format(score))
+
+            start_time = time.time()   #starts timer from 0 after each question
             
         else:
             global final_score
             final_score=score
             print(final_score)
+            print("Total Time:", total_time)
             end_quiz()
             #window.destroy()
 
@@ -55,6 +70,8 @@ def display_questions():
     window.geometry("1000x650")
     question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",22),wraplength=1000,text_color="red",bg_color="white",padx=10,pady=15)
     question_label.pack(pady=20,anchor="w",padx=10)
+    clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 16))
+    clock_label.pack(anchor="e")
 
     options = IntVar()
     options.set(-1)
