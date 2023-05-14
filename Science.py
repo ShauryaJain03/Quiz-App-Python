@@ -36,7 +36,7 @@ def display_questions():
         time_taken = end_time - start_time  # Calculate the time taken
         total_time+=time_taken   #updates total_time after each question
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))
-        print("Time taken:", time_taken) 
+        print("Time: {:.3f} seconds".format(time_taken)) 
         next_question()
 
     def next_question():
@@ -60,18 +60,18 @@ def display_questions():
             global final_score
             final_score=score
             print(final_score)
-            print("Total Time:", total_time)
+            print("Total Time: {:.3f} seconds".format(total_time))
             end_quiz()
             #window.destroy()
 
     window = CTkToplevel(sciencespage)
     window.title("Quiz")
     window.attributes("-topmost", True)
-    window.geometry("1000x650")
+    window.geometry("1100x650")
     question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",22),wraplength=1000,text_color="red",bg_color="white",padx=10,pady=15)
     question_label.pack(pady=20,anchor="w",padx=10)
-    clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 16))
-    clock_label.pack(anchor="e")
+    clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 20))  #timer label
+    clock_label.pack(anchor="ne",padx=15) 
 
     options = IntVar()
     options.set(-1)
