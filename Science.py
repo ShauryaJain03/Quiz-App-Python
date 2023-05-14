@@ -3,7 +3,6 @@ import time
 from customtkinter import *
 from PIL import Image,ImageTk
 import random
-from tkinter import messagebox
 from CTkMessagebox import CTkMessagebox
 import sc_questions
 def end_quiz():
