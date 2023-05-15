@@ -6,7 +6,7 @@ import random
 from CTkMessagebox import CTkMessagebox
 import sc_questions
 def end_quiz():
-        click_ans=CTkMessagebox(title="Quiz",  option_1="Close", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5,width=400,height=300,button_color="#0191C8",font=("helvetica",18))
+        click_ans=CTkMessagebox(title="Quiz",  option_1="Close", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
         if click_ans.get()=="End":
             sciencespage.destroy()
         else:
@@ -27,6 +27,7 @@ def display_questions():
             medium_questions.append(question)
         elif difficulty == "hard":
             hard_questions.append(question)
+        
 
     # Select random questions from each difficulty level
     selected_questions = []
@@ -66,7 +67,7 @@ def display_questions():
         nonlocal total_time  # This inherits the value from check_answer function
         if question_index < len(selected_questions) - 1:
             question_index += 1
-            question_label.configure(text=selected_questions[question_index][0])
+            question_label.configure(text="Q{}. ".format(question_index) + selected_questions[question_index][0])
             options.set(-1)
 
             for i, option in enumerate(option_buttons):
@@ -84,13 +85,15 @@ def display_questions():
             # window.destroy()
 
     # Rest of the code remains the same...
-    window = CTkToplevel(sciencespage)
-    window.title("Quiz")
+    window = CTkToplevel(sciencespage,fg_color="#291D30")
+    window.title("The Main Event")
     window.attributes("-topmost", True)
-    window.geometry("1100x600")
-    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",22),wraplength=1000,text_color="red",bg_color="white",padx=10,pady=15)
+    window.geometry("1050x600")
+    window.resizable(False,False)
+    window.iconbitmap("C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\iconfilemain\\favicon.ico")
+    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",24),wraplength=1000,text_color="#4684FF",padx=10,pady=15)
     question_label.pack(pady=20,anchor="w",padx=10)
-    clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 20))  #timer label
+    clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 22))  #timer label
     clock_label.pack(anchor="ne",padx=15) 
 
     options = IntVar()
@@ -98,11 +101,11 @@ def display_questions():
 
     option_buttons = []
     for i in range(4):
-        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="white",border_color="red",fg_color="aqua",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18))
+        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="#FFEEEB",border_color="#C270EB",fg_color="#FFAA00",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18),text_color="#FFDDD6")
         option_button.pack(anchor='w',padx=10,pady=15)
         option_buttons.append(option_button)
 
-    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=100,height=60)
+    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=100,height=60,fg_color="#4684FF")
     check_button.pack(pady=50)
 
     #score_label = CTkLabel(window, text="Score: 0")
@@ -124,6 +127,5 @@ def science():
     #bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
     #imglabel=Label(sciencespage,image=bg)
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
-    start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",18)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop()
-science()
+    start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",20)).place(relx=0.40,rely=0.5)
+    sciencespage.mainloop()     
