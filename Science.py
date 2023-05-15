@@ -60,7 +60,7 @@ def display_questions():
         total_time += time_taken  # Updates total_time after each question
         user_responses.append((selected_questions[question_index][0], selected_option,time_taken))  #the tuple for storing question , user response and time taken per question
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
-        print("Time: {:.3f} seconds".format(time_taken)+" with difficulty : {}".format(difficulty))  #printing time data to terminal
+        print("Time: {:.3f} seconds".format(time_taken)+" , {} level ".format(difficulty))  #printing time data to terminal
         next_question()
 
     def next_question():
@@ -81,10 +81,15 @@ def display_questions():
         else:
             global final_score
             final_score = score
-            print(final_score)   #print final score
+            print("Final score is : ",final_score)   #print final score
             print("Total Time: {:.3f} seconds".format(total_time))   #print total time
             print("Average time taken: {:.3f} seconds".format(total_time / 6))  #print average time
-            print(user_responses)  #print user responses
+
+            #print(user_responses)  
+            #print user responses as individual tuples 
+            for i in user_responses:
+                print(i,end="\n")
+
             end_quiz()
             # window.destroy()
 
@@ -133,4 +138,4 @@ def science():
     #imglabel=Label(sciencespage,image=bg)
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",20)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop()     
+    sciencespage.mainloop()
