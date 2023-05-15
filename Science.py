@@ -74,7 +74,8 @@ def display_questions():
                 option.configure(text=selected_questions[question_index][2][i])
 
             start_time = time.time()  # Starts timer from 0 after each question
-
+            if question_index==6:
+                check_button.configure(text="End")
         else:
             global final_score
             final_score = score
@@ -105,6 +106,7 @@ def display_questions():
         option_button.pack(anchor='w',padx=10,pady=15)
         option_buttons.append(option_button)
 
+    global check_button
     check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=100,height=60,fg_color="#4684FF")
     check_button.pack(pady=50)
 
