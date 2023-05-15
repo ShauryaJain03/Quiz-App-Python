@@ -12,15 +12,16 @@ def end_quiz():
         else:
             sciencespage.destroy()
 def display_questions():
+    user_responses=[]   #to store user responses as a tuple
     start_time = 0
     total_time = 0
     easy_questions = []  # List to store easy level questions
     medium_questions = []  # List to store medium level questions
     hard_questions = []  # List to store hard level questions
 
-    # Separate the questions based on their difficulty level
+    # assign questions based on their difficulty level
     for question in sc_questions.all_questions:
-        difficulty = question[3]  # Assuming the difficulty level is stored at index 3 of each question tuple
+        difficulty = question[3]  #the difficulty level is stored at index 3 of each question tuple
         if difficulty == "easy":
             easy_questions.append(question)
         elif difficulty == "medium":
@@ -29,7 +30,7 @@ def display_questions():
             hard_questions.append(question)
         
 
-    # Select random questions from each difficulty level
+    # Selecting random questions from each difficulty level
     selected_questions = []
     selected_questions.extend(random.sample(easy_questions,3))  #for easy it is taking n+1 as argument to display n questions
     selected_questions.extend(random.sample(medium_questions,2))
@@ -57,8 +58,9 @@ def display_questions():
         end_time = time.time()  # Get the current time
         time_taken = end_time - start_time  # Calculate the time taken
         total_time += time_taken  # Updates total_time after each question
-        clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))
-        print("Time: {:.3f} seconds".format(time_taken)+" with difficulty : {}".format(difficulty))
+        user_responses.append((selected_questions[question_index][0], selected_option,time_taken))  #the tuple for storing question , user response and time taken per question
+        clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
+        print("Time: {:.3f} seconds".format(time_taken)+" with difficulty : {}".format(difficulty))  #printing time data to terminal
         next_question()
 
     def next_question():
@@ -74,14 +76,15 @@ def display_questions():
                 option.configure(text=selected_questions[question_index][2][i])
 
             start_time = time.time()  # Starts timer from 0 after each question
-            if question_index==6:
+            if question_index==6:    #toggles the button text at the last question
                 check_button.configure(text="End")
         else:
             global final_score
             final_score = score
-            print(final_score)
-            print("Total Time: {:.3f} seconds".format(total_time))
-            print("Average time taken: {:.3f} seconds".format(total_time / 6))
+            print(final_score)   #print final score
+            print("Total Time: {:.3f} seconds".format(total_time))   #print total time
+            print("Average time taken: {:.3f} seconds".format(total_time / 6))  #print average time
+            print(user_responses)  #print user responses
             end_quiz()
             # window.destroy()
 
