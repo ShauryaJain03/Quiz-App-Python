@@ -98,13 +98,13 @@ def display_questions():
             # window.destroy()
 
     # Rest of the code remains the same...
-    window = CTkToplevel(sciencespage,fg_color="#291D30")
+    window = CTkToplevel(sciencespage,fg_color="#25292e")
     window.title("The Main Event")
     window.attributes("-topmost", True)
     window.geometry("1050x600")
     window.resizable(False,False)
     window.iconbitmap("C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\iconfilemain\\favicon.ico")
-    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",24),wraplength=1000,text_color="#4684FF",padx=10,pady=15)
+    question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",24),wraplength=1000,text_color="#f2a66a",padx=10,pady=15)
     question_label.pack(pady=20,anchor="w",padx=10)
     clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 22))  #timer label
     clock_label.pack(anchor="ne",padx=15) 
@@ -114,12 +114,12 @@ def display_questions():
 
     option_buttons = []
     for i in range(4):
-        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="#FFEEEB",border_color="#C270EB",fg_color="#FFAA00",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18),text_color="#FFDDD6")
+        option_button =CTkRadioButton(window, text="", variable=options, value=i,hover_color="#57a3e8",border_color="#ef727d",fg_color="#575bc1",radiobutton_height=20,radiobutton_width=20,height=40,font=("helvetica",18),text_color="white",border_width_checked=2,border_width_unchecked=2)
         option_button.pack(anchor='w',padx=10,pady=15)
         option_buttons.append(option_button)
 
     global check_button
-    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=100,height=60,fg_color="#4684FF")
+    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=100,height=60,fg_color="#575bc1",text_color="#fff",hover_color="#2a357a")
     check_button.pack(pady=50)
 
     #score_label = CTkLabel(window, text="Score: 0")
@@ -142,4 +142,4 @@ def science():
     #imglabel=Label(sciencespage,image=bg)
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",20)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop()     
+    sciencespage.mainloop()    
