@@ -43,22 +43,26 @@ def display_questions():
         nonlocal score
         nonlocal start_time
         nonlocal total_time
+        global answer
         selected_option = options.get()
         correct_option = selected_questions[question_index][1]
         difficulty = selected_questions[question_index][3]
-
         if selected_option == correct_option:
+            answer="correct"
             if difficulty == "easy":
                 score += 1
             elif difficulty == "medium":
                 score += 2
             elif difficulty == "hard":
                 score += 3
-
+        elif selected_option==-1:
+            answer="notAnswered"
+        else:
+            answer="wrong"
         end_time = time.time()  # Get the current time
         time_taken = end_time - start_time  # Calculate the time taken
         total_time += time_taken  # Updates total_time after each question
-        user_responses.append((selected_questions[question_index][0], selected_option,time_taken))  #the tuple for storing question , user response and time taken per question
+        user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken))  #the tuple for storing question , user response and time taken per question
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
         print("Time: {:.3f} seconds".format(time_taken)+" , {} level ".format(difficulty))  #printing time data to terminal
         next_question()
@@ -138,4 +142,4 @@ def science():
     #imglabel=Label(sciencespage,image=bg)
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",20)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop()
+    sciencespage.mainloop()     
