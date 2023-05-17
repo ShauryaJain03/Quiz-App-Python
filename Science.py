@@ -11,13 +11,18 @@ def end_quiz():
             sciencespage.destroy()
         else:
             sciencespage.destroy()
-def display_questions():
+def display_questions(window):
     user_responses=[]   #to store user responses as a tuple
     start_time = 0
     total_time = 0
     easy_questions = []  # List to store easy level questions
     medium_questions = []  # List to store medium level questions
     hard_questions = []  # List to store hard level questions
+
+    clock_label = Label(window, text="Time: 0", font=("helvetica", 22))  # Timer label
+    clock_label.pack(anchor="ne", padx=15)
+    start_time = time.time()  # Store the start time
+
 
     # assign questions based on their difficulty level
     for question in sc_questions.all_questions:
@@ -38,6 +43,12 @@ def display_questions():
 
     question_index = 0
     score = 0
+    def update_clock():
+        current_time = time.time() - start_time  # Calculate the time elapsed
+        clock_label.configure(text="Time: {:.2f} seconds".format(current_time))
+        window.after(100, update_clock)  # Update the clock every 100 milliseconds (0.1 seconds)
+
+    update_clock() 
 
     def check_answer():
         nonlocal score
@@ -141,5 +152,5 @@ def science():
     #bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
     #imglabel=Label(sciencespage,image=bg)
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
-    start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(),font=("helvetica",20)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop()    
+    start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(sciencespage),font=("helvetica",20)).place(relx=0.40,rely=0.5)
+    sciencespage.mainloop()     
