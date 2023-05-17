@@ -5,6 +5,7 @@ from PIL import Image,ImageTk
 import random
 from CTkMessagebox import CTkMessagebox
 import sc_questions
+quiz_ended=False
 def end_quiz():
         click_ans=CTkMessagebox(title="Quiz",  option_1="Close", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
         if click_ans.get()=="End":
@@ -19,6 +20,7 @@ def display_questions(window):
     medium_questions = []  # List to store medium level questions
     hard_questions = []  # List to store hard level questions
 
+    global clock_label
     clock_label = Label(window, text="Time: 0", font=("helvetica", 22))  # Timer label
     clock_label.pack(anchor="ne", padx=15)
     start_time = time.time()  # Store the start time
@@ -43,12 +45,14 @@ def display_questions(window):
 
     question_index = 0
     score = 0
-    def update_clock():
-        current_time = time.time() - start_time  # Calculate the time elapsed
-        clock_label.configure(text="Time: {:.2f} seconds".format(current_time))
-        window.after(100, update_clock)  # Update the clock every 100 milliseconds (0.1 seconds)
 
+    def update_clock():
+            if quiz_ended==False:
+                current_time = time.time() - start_time  # Calculate the time elapsed
+                clock_label.configure(text="Time: {:.2f} seconds".format(current_time))
+                window.after(100, update_clock)  # Update the clock every 100 milliseconds (0.1 seconds)
     update_clock() 
+
 
     def check_answer():
         nonlocal score
@@ -93,7 +97,11 @@ def display_questions(window):
             start_time = time.time()  # Starts timer from 0 after each question
             if question_index==6:    #toggles the button text at the last question
                 check_button.configure(text="End")
+
+                
         else:
+            global quiz_ended
+            quiz_ended=True
             global final_score
             final_score = score
             print("Final score is : ",final_score)   #print final score
@@ -104,7 +112,6 @@ def display_questions(window):
             #print user responses as individual tuples 
             for i in user_responses:
                 print(i,end="\n")
-
             end_quiz()
             # window.destroy()
 
