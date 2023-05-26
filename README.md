@@ -24,8 +24,8 @@ if 1 is chosen:
 
 if 2 is chosen:
      a) we will display the table which has records of all the players till date sorted in descending order acc to percentage (name , score , percentage)
-     b) and maybe a graph using pandas too if time permits
-	 c) ML?
+     b) and maybe a graph using matplot - 
+     c) 
 
 if 3 is chosen :
      a) we will select a random fact from a pool of *very large number* of facts and display it using random module
