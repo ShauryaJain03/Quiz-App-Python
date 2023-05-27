@@ -6,6 +6,7 @@ import random
 from CTkMessagebox import CTkMessagebox
 import sc_questions
 quiz_ended=False
+hint=[]
 def end_quiz():
         click_ans=CTkMessagebox(title="Quiz",  option_1="Close", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
         if click_ans.get()=="End":
@@ -35,14 +36,13 @@ def display_questions(window):
             medium_questions.append(question)
         elif difficulty == "hard":
             hard_questions.append(question)
-        
-
+    
     # Selecting random questions from each difficulty level
     selected_questions = []
     selected_questions.extend(random.sample(easy_questions,3))  #for easy it is taking n+1 as argument to display n questions
     selected_questions.extend(random.sample(medium_questions,2))
     selected_questions.extend(random.sample(hard_questions,2))
-
+    
     question_index = 0
     score = 0
 
@@ -62,6 +62,11 @@ def display_questions(window):
         selected_option = options.get()
         correct_option = selected_questions[question_index][1]
         difficulty = selected_questions[question_index][3]
+        
+        if difficulty=="hard":
+            hint_hard=selected_questions[question_index][4]
+            hint.append(hint_hard)
+
         if selected_option == correct_option:
             answer="correct"
             if difficulty == "easy":
@@ -80,6 +85,7 @@ def display_questions(window):
         user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken))  #the tuple for storing question , user response and time taken per question
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
         print("Time: {:.3f} seconds".format(time_taken)+" , {} level ".format(difficulty))  #printing time data to terminal
+
         next_question()
 
     def next_question():
@@ -98,7 +104,6 @@ def display_questions(window):
             if question_index==6:    #toggles the button text at the last question
                 check_button.configure(text="End")
 
-                
         else:
             global quiz_ended
             quiz_ended=True
@@ -114,6 +119,7 @@ def display_questions(window):
                 print(i,end="\n")
             end_quiz()
             # window.destroy()
+
 
     # Rest of the code remains the same...
     window = CTkToplevel(sciencespage,fg_color="#25292e")
@@ -137,9 +143,11 @@ def display_questions(window):
         option_buttons.append(option_button)
 
     global check_button
-    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=100,height=60,fg_color="#575bc1",text_color="#fff",hover_color="#2a357a")
-    check_button.pack(pady=50)
-
+    check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=110,height=70,fg_color="#575bc1",text_color="#fff",hover_color="#2a357a")
+    check_button.place(x=550,y=450)
+    
+    hint_btn=CTkButton(window,text="Show Hint",state=DISABLED,font=("helvetica",20),width=110,height=70)
+    hint_btn.place(x=400,y=450)
     #score_label = CTkLabel(window, text="Score: 0")
     #score_label.pack()
 
