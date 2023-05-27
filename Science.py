@@ -6,13 +6,19 @@ import random
 from CTkMessagebox import CTkMessagebox
 import sc_questions
 quiz_ended=False
-hint=[]
+
+def show_hint():
+    hint_clicked=CTkMessagebox(title="HINT",message=hint_hard,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
+
+
 def end_quiz():
+        
         click_ans=CTkMessagebox(title="Quiz",  option_1="Close", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
         if click_ans.get()=="End":
             sciencespage.destroy()
         else:
             sciencespage.destroy()
+
 def display_questions(window):
     user_responses=[]   #to store user responses as a tuple
     start_time = 0
@@ -63,9 +69,6 @@ def display_questions(window):
         correct_option = selected_questions[question_index][1]
         difficulty = selected_questions[question_index][3]
         
-        if difficulty=="hard":
-            hint_hard=selected_questions[question_index][4]
-            hint.append(hint_hard)
 
         if selected_option == correct_option:
             answer="correct"
@@ -79,6 +82,7 @@ def display_questions(window):
             answer="notAnswered"
         else:
             answer="wrong"
+
         end_time = time.time()  # Get the current time
         time_taken = end_time - start_time  # Calculate the time taken
         total_time += time_taken  # Updates total_time after each question
@@ -96,6 +100,11 @@ def display_questions(window):
             question_index += 1
             question_label.configure(text="Q{}. ".format(question_index) + selected_questions[question_index][0])
             options.set(-1)
+
+            if selected_questions[question_index][3]=="hard":
+                hint_btn.configure(state=ACTIVE,command=show_hint)
+                global hint_hard
+                hint_hard=selected_questions[question_index][4]            
 
             for i, option in enumerate(option_buttons):
                 option.configure(text=selected_questions[question_index][2][i])
@@ -145,7 +154,7 @@ def display_questions(window):
     global check_button
     check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=110,height=70,fg_color="#575bc1",text_color="#fff",hover_color="#2a357a")
     check_button.place(x=550,y=450)
-    
+    global hint_btn
     hint_btn=CTkButton(window,text="Show Hint",state=DISABLED,font=("helvetica",20),width=110,height=70)
     hint_btn.place(x=400,y=450)
     #score_label = CTkLabel(window, text="Score: 0")
