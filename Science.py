@@ -33,6 +33,7 @@ def display_questions(window):
     easy_questions = []  # List to store easy level questions
     medium_questions = []  # List to store medium level questions
     hard_questions = []  # List to store hard level questions
+    image_questions=[]   # List to store image questions
 
     global clock_label
     clock_label = Label(window, text="Time: 0", font=("helvetica", 22))  # Timer label
@@ -49,12 +50,15 @@ def display_questions(window):
             medium_questions.append(question)
         elif difficulty == "hard":
             hard_questions.append(question)
+        elif difficulty=="image":
+            image_questions.append(question)
     
     # Selecting random questions from each difficulty level
     selected_questions = []
-    selected_questions.extend(random.sample(easy_questions,3))  #for easy it is taking n+1 as argument to display n questions
+    selected_questions.extend(random.sample(easy_questions,3))  #for easy it is taking n+1 as argument to display n questions   
     selected_questions.extend(random.sample(medium_questions,2))
     selected_questions.extend(random.sample(hard_questions,2))
+    selected_questions.extend(random.sample(image_questions, 1))
     
     question_index = 0
     score = 0
@@ -85,6 +89,8 @@ def display_questions(window):
                 score += 2
             elif difficulty == "hard":
                 score += 3
+            elif difficulty=="image":
+                score+=5
         elif selected_option==-1:
             answer="notAnswered"
         else:
@@ -117,7 +123,7 @@ def display_questions(window):
             question_label.configure(text="Q{}. ".format(question_index) + selected_questions[question_index][0])
             options.set(-1)
 
-            if selected_questions[question_index][3]=="hard":
+            if (selected_questions[question_index][3]=="hard"):
                 hint_btn.configure(state=ACTIVE,command=show_hint)
                 global hint_hard
                 hint_hard=selected_questions[question_index][4]            
@@ -129,6 +135,12 @@ def display_questions(window):
             if question_index==6:    #toggles the button text at the last question
                 check_button.configure(text="End")
 
+            if selected_questions[question_index][3] == "image":
+                hint_btn.configure(state=DISABLED,command=show_hint)
+                img_path = selected_questions[question_index][4]
+                display_image(img_path)
+            else:
+                hide_image()
         else:
             global quiz_ended
             quiz_ended=True
@@ -145,8 +157,18 @@ def display_questions(window):
             end_quiz()
             # window.destroy()
 
+    def display_image(img_path):
+        image = Image.open(img_path)
+        image = image.resize((550, 450), resample=Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        image_label.configure(image=photo)
+        image_label.image = photo
+        image_label.place(x=1000,y=180)
 
-    # Rest of the code remains the same...
+    def hide_image():
+        image_label.pack_forget()
+
+    
     window = CTkToplevel(sciencespage,fg_color="#25292e")
     window.title("The Main Event")
     window.attributes("-topmost", True)
@@ -156,8 +178,9 @@ def display_questions(window):
     question_label = CTkLabel(window, text=selected_questions[question_index][0],font=("helvetica",24),wraplength=1000,text_color="#f2a66a",padx=10,pady=15)
     question_label.pack(pady=20,anchor="w",padx=10)
     clock_label = CTkLabel(window, text="Time: 0", font=("helvetica", 22))  #timer label
-    clock_label.pack(anchor="ne",padx=15) 
-
+    clock_label.pack(anchor="e",padx=10) 
+    image_label = Label(window)
+    
     options = IntVar()
     options.set(-1)
 
@@ -169,10 +192,10 @@ def display_questions(window):
 
     global check_button
     check_button = CTkButton(window, text="Next", command=check_answer,font=("helvetica",18),width=110,height=70,fg_color="#575bc1",text_color="#fff",hover_color="#2a357a")
-    check_button.place(x=550,y=450)
+    check_button.place(x=550,y=500)
     global hint_btn
     hint_btn=CTkButton(window,text="Show Hint",state=DISABLED,font=("helvetica",20),width=110,height=70)
-    hint_btn.place(x=400,y=450)
+    hint_btn.place(x=400,y=500)
     #score_label = CTkLabel(window, text="Score: 0")
     #score_label.pack()
 
@@ -180,6 +203,7 @@ def display_questions(window):
     window.mainloop()
 
 def science():
+
     global sciencespage
     sciencespage = CTk()
     sciencespage.title("Science")
