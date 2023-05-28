@@ -7,14 +7,14 @@ from CTkMessagebox import CTkMessagebox
 import sc_questions
 
 quiz_ended=False
-Button_clicked=False
+hint_taken=False
 hint_count=0
 
 def show_hint():
     global hint_count
-    Button_clicked=True
+    hint_taken=True
     hint_clicked=CTkMessagebox(title="HINT",message=hint_hard,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
-    if Button_clicked==True:
+    if hint_taken==True:
         hint_count+=1
     
 
@@ -93,8 +93,16 @@ def display_questions(window):
         end_time = time.time()  # Get the current time
         time_taken = end_time - start_time  # Calculate the time taken
         total_time += time_taken  # Updates total_time after each question
-        
-        user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken))  #the tuple for storing question , user response and time taken per question
+
+        #the tuple for storing question , user response and time taken per question
+        if difficulty=="hard" and hint_count>=1:
+            user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken,"yes"))
+        elif(difficulty=="hard" and hint_count==0):
+            user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken,"no"))
+        else:
+            user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken))
+
+
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
         print("Time: {:.3f} seconds".format(time_taken)+" , {} level ".format(difficulty))  #printing time data to terminal
 
@@ -185,4 +193,4 @@ def science():
     #imglabel=Label(sciencespage,image=bg)
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(sciencespage),font=("helvetica",20)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop() 
+    sciencespage.mainloop()  
