@@ -8,13 +8,28 @@ all_questions = [
     ("Which of the following elements has the highest electronegativity?",1, ["Sodium (Na)", "Chlorine (Cl)", "Carbon (C)", "Oxygen (O)"],"medium"),
     ("Which of the following is a characteristic of an acid?",0, ["It donates protons (H+ ions).", " It donates electrons.", "It accepts protons (H+ ions).", "It accepts electrons."],"easy"),
     ("Which of the following is the primary function of the circulatory system?",0, ["Oxygen transport", "Digestion", "Hormone production", "Waste elimination"],"medium"),
-    ("Which of the following is responsible for carrying oxygen in red blood cells?",2, ["Platelets", " White blood cells", "Hemoglobin", "Plasma"],"easy"),
+    ("Which of the following is responsible for carrying oxygen in red blood cells?",2, ["Platelets", "White blood cells", "Hemoglobin", "Plasma"],"easy"),
     ("Which of the following is the primary greenhouse gas responsible for climate change?",0 , ["Carbon dioxide (CO2)", "Methane (CH4)", "Nitrous oxide (N2O)", "Ozone (O3)"],"medium"),
     ("Which of the following organs produces insulin in the human body?",1 , ["Liver", "Pancreas", "Kidney", "Stomach"],"medium"),
     ("Which of the following is an example of an exothermic reaction?", 0, ["Burning of wood", "Dissolution of sugar in water", "Photosynthesis", "Melting of ice"],"easy"),
-    ("What is the function of the cerebellum in the human brain?", 1, ["Control of voluntary movements", "Regulation of body temperature", "Production of hormones", "Processing of sensory information"],"hard"),
-    ("What does the term Schwarzschild radius represent?", 3, ["Radius of atom", "Radius of an electron", "Radius of a galaxy", "Radius of the event horizon"],"hard"),
+    ("What is the function of the cerebellum in the human brain?", 1, ["Control of voluntary movements", "Regulation of body temperature", "Production of hormones", "Processing of sensory information"],"hard","hint"),
+    ("What does the term Schwarzschild radius represent?", 3, ["Radius of atom", "Radius of an electron", "Radius of a galaxy", "Radius of the event horizon"],"hard","It is related to the cosmos"),
     ("What is the fundamental force responsible for radioactive decay?",2 , ["Strong Nuclear force", "Magnetic force", "Weak Nuclear force", "Electromagnetic"],"medium"),
-    ("What is the process by which an atomic nucleus releases energy by splitting into two smaller nuclei?", 3, ["Fusion", "Collision", "Annhilation", "Fission"],"easy")    
+    ("What is the process by which an atomic nucleus releases energy by splitting into two smaller nuclei?", 3, ["Fusion", "Collision", "Annhilation", "Fission"],"easy"),
+    ("What is the process by which a material's electrical resistance drops to zero at very low temperatures?",1 , ["Conductivity", "Superconductivity", "Quantum tunneling", "Electromagnetic induction"],"medium"),
+    ("What is the hypothetical particle that is its own antiparticle called?", 3, ["Leptons", "Photons", "Quarks", "Majorana"], "hard","hint"),
+    ("What is the theoretical phenomenon where a particle's position and momentum cannot be simultaneously known with high precision?", 2, ["Wave-particle duality", "Pauli exclusion principle", "Heisenberg uncertainty principle", "Schrödinger's cat"], "medium"),
+    ("What is the phenomenon where a substance exists in more than one distinct crystalline form?", 1, ["Isomerism", "Polymorphism", "Solvation", "Catalysis"], "medium"),
+    ("What is the fundamental force responsible for holding the nucleus of an atom together?", 2, ["Gravity", "Electromagnetic force", "Strong nuclear force", "Weak nuclear force"], "medium"),
+    ("What is the process by which a nucleus emits an alpha particle?", 3, ["Alpha decay", "Beta decay", "Gamma decay", "Electron capture"], "hard","hint"),
+    ("What is the name of the region in a gene that determines the amino acid sequence of a protein?", 2, ["Exon", "Promoter", "Codon", "Intron"], "hard","hint"),
+    ("What is the process by which a cell engulfs and internalizes large particles or other cells?", 3, ["Endocytosis", "Exocytosis", "Pinocytosis", "Phagocytosis"], "hard","hint"),
+    ("What is the name given to the ratio of the output power to the input power of an electrical device?", 0, ["Efficiency", "Power factor", "Load factor", "Conversion factor"], "easy"),
+    ("What is the term for the ability of a material to be stretched without breaking?", 3, ["Brittleness", "Rigidity", "Tensile strength", "Plasticity"], "medium"),
+    ("What is the term for the ratio of the change in output of a system to the change in input?", 0, ["Gain", "Latency", "Bandwidth", "Feedback"], "medium"),
+
+    ("Identify this planet", 1, ["Neptune", "Uranus", "Venus", "Mercury"], "image","C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\uranus.jpg"),
+
+    ("Name this renowned scientist", 3, ["Albert Einstein", "Niels Bohr", "Pierre Curie", "Werner Heisenberg"],"image", "C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\heisenberg.jpg")
 ]
 
