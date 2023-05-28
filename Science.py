@@ -95,7 +95,7 @@ def display_questions(window):
         total_time += time_taken  # Updates total_time after each question
 
         #the tuple for storing question , user response and time taken per question
-        if difficulty=="hard" and hint_count>=1:
+        if (difficulty=="hard" and hint_count>=1):
             user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken,"yes"))
         elif(difficulty=="hard" and hint_count==0):
             user_responses.append((selected_questions[question_index][0], selected_option,answer,time_taken,"no"))
