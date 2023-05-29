@@ -5,7 +5,9 @@ from PIL import Image,ImageTk
 import random
 from CTkMessagebox import CTkMessagebox
 import sc_questions
-
+import requests
+import threading
+from io import BytesIO
 quiz_ended=False
 hint_taken=False
 hint_count=0
@@ -19,12 +21,20 @@ def show_hint():
     
 
 def end_quiz():
-        
         click_ans=CTkMessagebox(title="Quiz",  option_1="Close", option_2="See Analysis",message="Quiz completed!\nYour score: {}".format(final_score),fade_in_duration=0.5,width=400,height=280,button_color="#0191C8",font=("helvetica",18))
         if click_ans.get()=="End":
             sciencespage.destroy()
         else:
             sciencespage.destroy()
+
+def preload_images(*questions):
+    for question in questions:
+        if question[3] == "image":  # index 3 contains the difficulty level
+            img_url = question[4]  # index 4 contains the image URL
+            preload_image(img_url)
+
+def preload_image(img_url):
+    response = requests.get(img_url)
 
 def display_questions(window):
     user_responses=[]   #to store user responses as a tuple
@@ -37,7 +47,7 @@ def display_questions(window):
 
     global clock_label
     clock_label = Label(window, text="Time: 0", font=("helvetica", 22))  # Timer label
-    clock_label.pack(anchor="ne", padx=15)
+    clock_label.pack(anchor="ne", padx=10)
     start_time = time.time()  # Store the start time
 
 
@@ -62,6 +72,9 @@ def display_questions(window):
     
     question_index = 0
     score = 0
+
+    preload_thread = threading.Thread(target=preload_images, args=(selected_questions))
+    preload_thread.start()
 
     def update_clock():
             if quiz_ended==False:
@@ -157,13 +170,16 @@ def display_questions(window):
             end_quiz()
             # window.destroy()
 
-    def display_image(img_path):
-        image = Image.open(img_path)
+
+    def display_image(img_url):
+        response = requests.get(img_url)
+        image_data = response.content
+        image = Image.open(BytesIO(image_data))
         image = image.resize((550, 450), resample=Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         image_label.configure(image=photo)
         image_label.image = photo
-        image_label.place(x=1000,y=180)
+        image_label.place(x=1000, y=180)
 
     def hide_image():
         image_label.pack_forget()
@@ -196,8 +212,6 @@ def display_questions(window):
     global hint_btn
     hint_btn=CTkButton(window,text="Show Hint",state=DISABLED,font=("helvetica",20),width=110,height=70)
     hint_btn.place(x=400,y=500)
-    #score_label = CTkLabel(window, text="Score: 0")
-    #score_label.pack()
 
     next_question()
     window.mainloop()
@@ -213,8 +227,8 @@ def science():
     set_appearance_mode("system")
     set_default_color_theme("dark-blue") 
     sciencespage.iconbitmap("C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\iconfilemain\\favicon.ico")
-    #bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
-    #imglabel=Label(sciencespage,image=bg)
-    #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
+    bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
+    imglabel=Label(sciencespage,image=bg)
+    imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(sciencespage),font=("helvetica",20)).place(relx=0.40,rely=0.5)
     sciencespage.mainloop()  
