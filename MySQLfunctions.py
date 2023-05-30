@@ -1,12 +1,37 @@
-from mysql.connector import *
-mydb=connect(user="root",host="localhost",passwd="s1j1H3a45%$")
-cursor=mydb.cursor()
-cursor.execute("use test")
-def create():
-    cursor.execute("create table userdata(usernumber integer primary key,username varchar(20),emailid varchar(20),score integer)")
-def write(username,email):
-    command="insert into userdata(usernumber,username,emailid,score) values(%s,%s,%s,%s)"
-    values=(1,username,email,0)
-    cursor.execute(command,values)
-    mydb.commit()
+import mysql.connector
+from mysql.connector import Error
+
+
+def create_connection():
+    connection = None
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='test',
+            user='root',
+            password='s1j1H3a45%$'
+        )
+        if connection.is_connected():
+            print('Connected to MySQL database')
+    except Error as e:
+        print(f'Error connecting to MySQL database: {e}')
+    return connection
+
+
+def insert_response(response):
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor()
+            query = "INSERT INTO user_responses (question, response, answer, time_taken, hint_taken) VALUES (%s, %s, %s, %s, %s)"
+            cursor.execute(query, response)
+            connection.commit()
+            print("User response inserted into the database")
+        except Error as e:
+            print(f'Error inserting user response: {e}')
+        finally:
+            cursor.close()
+            connection.close()
+            print("MySQL connection closed")
+
 
