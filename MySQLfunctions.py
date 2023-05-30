@@ -1,7 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-
-
 def create_connection():
     connection = None
     try:
@@ -17,21 +15,21 @@ def create_connection():
         print(f'Error connecting to MySQL database: {e}')
     return connection
 
-
-def insert_response(response):
+def insert_response(user_responseList):
     connection = create_connection()
     if connection:
         try:
             cursor = connection.cursor()
-            query = "INSERT INTO user_responses (question, response, answer, time_taken, hint_taken) VALUES (%s, %s, %s, %s, %s)"
-            cursor.execute(query, response)
-            connection.commit()
-            print("User response inserted into the database")
+            table_name = 'testdata'
+            for i in user_responseList:
+                data_list=i
+                placeholders = ', '.join(['%s'] * len(data_list))
+                query = f"INSERT INTO {table_name} VALUES ({placeholders})"
+                cursor.execute(query, data_list)
+                connection.commit()
         except Error as e:
             print(f'Error inserting user response: {e}')
         finally:
             cursor.close()
             connection.close()
             print("MySQL connection closed")
-
-
