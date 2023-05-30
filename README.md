@@ -34,7 +34,15 @@ if 3 is chosen :
 if 4 is chosen : 
      a)quiz terminates
 
-DATABASE will have 1 table :
+DATABASE will have multiple tables as each user logs in created dynamically of this format:
+
+| question   | varchar(200)   | YES  |     | NULL    |       |
+| difficulty | varchar(15)    | YES  |     | NULL    |       |
+| choice     | int            | YES  |     | NULL    |       |
+| answer     | varchar(12)    | YES  |     | NULL    |       |
+| time       | decimal(20,17) | YES  |     | NULL    |       |
+| hint       | varchar(5)     | YES  |     | NULL
+
 
 1. a table with data of all users till date
 2. table which store stats of the user for training model and extracting information
