@@ -37,6 +37,7 @@ def preload_image(img_url):
     response = requests.get(img_url)
 
 def display_questions(window):
+    global user_responses
     user_responses=[]   #to store user responses as a tuple
     start_time = 0
     total_time = 0
@@ -145,7 +146,7 @@ def display_questions(window):
                 option.configure(text=selected_questions[question_index][2][i])
 
             start_time = time.time()  # Starts timer from 0 after each question
-            if question_index==6:    #toggles the button text at the last question
+            if question_index==7:    #toggles the button text at the last question
                 check_button.configure(text="End")
 
             if selected_questions[question_index][3] == "image":
@@ -227,8 +228,8 @@ def science():
     set_appearance_mode("system")
     set_default_color_theme("dark-blue") 
     sciencespage.iconbitmap("C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\iconfilemain\\favicon.ico")
-    bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
-    imglabel=Label(sciencespage,image=bg)
-    imglabel.place(x=0,y=0,relwidth=1,relheight=1)
+    #bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\sciencebkg.png")
+    #imglabel=Label(sciencespage,image=bg)
+    #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(sciencespage),font=("helvetica",20)).place(relx=0.40,rely=0.5)
-    sciencespage.mainloop()  
+    sciencespage.mainloop()
