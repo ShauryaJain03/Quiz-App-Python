@@ -95,7 +95,8 @@ def display_questions(window):
         selected_option = options.get()
         correct_option = selected_questions[question_index][1]
         difficulty = selected_questions[question_index][3]
-        
+        code=selected_questions[question_index][5]
+        hint_avail=selected_questions[question_index][4]
 
         if selected_option == correct_option:
             answer="correct"
@@ -118,11 +119,11 @@ def display_questions(window):
 
         #the tuple for storing question , user response and time taken per question
         if (difficulty=="hard" and hint_taken==True):
-            user_responses.append([selected_questions[question_index][0], difficulty,selected_option,answer,time_taken,"yes"])
+            user_responses.append([selected_questions[question_index][0], difficulty,selected_option,answer,time_taken,"yes",code])
         elif(difficulty=="hard" and hint_taken==False):
-            user_responses.append([selected_questions[question_index][0],  difficulty,selected_option,answer,time_taken,"no"])
+            user_responses.append([selected_questions[question_index][0],  difficulty,selected_option,answer,time_taken,"no",code])
         else:
-            user_responses.append([selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,"NA"])
+            user_responses.append([selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,hint_avail,code])
 
 
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
@@ -237,5 +238,6 @@ def science():
     #imglabel.place(x=0,y=0,relwidth=1,relheight=1)
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(sciencespage),font=("helvetica",20)).place(relx=0.40,rely=0.5)
     sciencespage.mainloop()
+
 science()
 MySQLfunctions.insert_response(user_responses)
