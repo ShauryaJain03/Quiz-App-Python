@@ -12,6 +12,7 @@ from io import BytesIO
 quiz_ended=False
 hint_taken=False
 hint_count=0
+
 def show_hint():
     global hint_count
     global hint_taken
@@ -87,6 +88,7 @@ def display_questions(window):
 
 
     def check_answer():
+        global final_score
         nonlocal score
         nonlocal start_time
         nonlocal total_time
@@ -118,11 +120,12 @@ def display_questions(window):
 
         #the tuple for storing question , user response and time taken per question
         if (difficulty=="hard" and hint_taken==True):
-            user_responses.append([selected_questions[question_index][0], difficulty,selected_option,answer,time_taken,"yes",code])
+            user_responses.append([selected_questions[question_index][0], difficulty,selected_option,answer,time_taken,"yes",code,score])
         elif(difficulty=="hard" and hint_taken==False):
-            user_responses.append([selected_questions[question_index][0],  difficulty,selected_option,answer,time_taken,"no",code])
+            user_responses.append([selected_questions[question_index][0],  difficulty,selected_option,answer,time_taken,"no",code,score])
         else:
-            user_responses.append([selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,hint_avail,code])
+            user_responses.append([selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,hint_avail,code,score])
+
 
 
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
@@ -239,4 +242,11 @@ def science():
     sciencespage.mainloop()
 
 science()
-MySQLfunctions.insert_response("iec2022010",user_responses)
+
+for i in user_responses:
+    if i[1]=="image":
+        i[7]=final_score
+for i in user_responses:
+    print(i)
+
+MySQLfunctions.insert_response("iec2022012",user_responses)
