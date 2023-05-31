@@ -12,7 +12,6 @@ from io import BytesIO
 quiz_ended=False
 hint_taken=False
 hint_count=0
-
 def show_hint():
     global hint_count
     global hint_taken
@@ -240,4 +239,4 @@ def science():
     sciencespage.mainloop()
 
 science()
-MySQLfunctions.insert_response(user_responses)
+MySQLfunctions.insert_response("iec2022010",user_responses)
