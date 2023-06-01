@@ -2,13 +2,11 @@ from tkinter import *
 from customtkinter import *
 from PIL import Image,ImageTk
 from MySQLfunctions import *
-from MainMenu import *
 from trivia import *
+import sc_questions
 global bg
 global photo1
 global photo2
-
-# Create the main window and run the app
 root = CTk()
 root.title("Quizzify")
 root.geometry("680x620")  #width vs height
@@ -45,13 +43,13 @@ def genre():
     label3=Label(genrepage,image=photo3)
     label3.image=photo3
     label3.pack()
-    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150,font=("helvetica",18),command=lambda:GK.gk()).place(relx=0.2,rely=0.25)
-    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18),command=science).place(relx=0.55,rely=0.25)
-    sports_btn=CTkButton(genrepage,text="Sports",height=80,width=150,font=("helvetica",18),command=lambda:Sports.sports()).place(relx=0.2,rely=0.45)
-    his_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18),command=lambda:History.history()).place(relx=0.55,rely=0.45)
-    cultural_btn=CTkButton(genrepage,text="Cultural",height=80,width=150, font=("helvetica",18),command=lambda:Cultural.cultural()).place(relx=0.2,rely=0.65)
-    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18),command=lambda:Mixed.mixed()).place(relx=0.55,rely=0.65)
-    close_btn=CTkButton(genrepage,text="Close",height=50,width=120, command=genrepage.destroy,font=("helvetica",18)).place(relx=0.4,rely=0.85)
+    gk_btn=CTkButton(genrepage,text="GK",height=80,width=150,font=("helvetica",18),command=lambda:GK.gk(),fg_color="#575bc1").place(relx=0.2,rely=0.25)
+    science_btn=CTkButton(genrepage,text="Science",height=80,width=150, font=("helvetica",18),command=science,fg_color="#575bc1").place(relx=0.55,rely=0.25)
+    sports_btn=CTkButton(genrepage,text="Sports",height=80,width=150,font=("helvetica",18),command=lambda:Sports.sports(),fg_color="#575bc1").place(relx=0.2,rely=0.45)
+    his_btn=CTkButton(genrepage,text="History",height=80,width=150,font=("helvetica",18),command=lambda:History.history(),fg_color="#575bc1").place(relx=0.55,rely=0.45)
+    cultural_btn=CTkButton(genrepage,text="Cultural",height=80,width=150, font=("helvetica",18),command=lambda:Cultural.cultural(),fg_color="#575bc1").place(relx=0.2,rely=0.65)
+    mixed_btn=CTkButton(genrepage,text="Mixed",height=80,width=150, font=("helvetica",18),command=lambda:Mixed.mixed(),fg_color="#575bc1").place(relx=0.55,rely=0.65)
+    close_btn=CTkButton(genrepage,text="Close",height=50,width=120, command=genrepage.destroy,font=("helvetica",18),fg_color="#575bc1").place(relx=0.4,rely=0.85)
 
 
 def mainmenu():
@@ -99,7 +97,7 @@ def trivia():
 imglabel=Label(root,image=bg)
 imglabel.place(x=0,y=0,relwidth=1,relheight=1)
 
-# Create username label and entry field
+#create username label and entry field
 CTkLabel(root, text="Username",anchor=CENTER,fg_color="#feaf88",width=100,height=30,font=("helvetica",16),corner_radius=20,text_color="#0b2954",).place(relx=0.3,rely=0.35)
         
 username_entry = CTkEntry(root,width=150,height=30,bg_color="#0b2954",text_color="#feaf88",font=("helvetica",16))
