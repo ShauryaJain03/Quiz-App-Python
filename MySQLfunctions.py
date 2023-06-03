@@ -15,15 +15,15 @@ def create_connection():
         print(f'Error connecting to MySQL database: {e}')
     return connection
 
-def insert_response(id,user_responseList):
+def insert_response(id,subject,user_responseList):
     connection = create_connection()
     if connection:
         try:
             cursor = connection.cursor()
-            cursor.execute("show tables like %s",(id,))
+            cursor.execute("show tables like %s",(id+subject,))
             table_exists = cursor.fetchone()
             if table_exists:
-                table_name = id
+                table_name = id+subject
                 for i in user_responseList:
                     data_list=i
                     placeholders = ', '.join(['%s'] * len(data_list))
@@ -31,8 +31,8 @@ def insert_response(id,user_responseList):
                     cursor.execute(query, data_list)
                     connection.commit()
             else:
-                table_name = id
-                create_query=f"CREATE TABLE {table_name} (question varchar(200) , difficulty varchar(15) ,choice integer, answer varchar(12) ,time decimal(20,17), hint varchar(200),code char(5))"
+                table_name = id+subject
+                create_query=f"CREATE TABLE {table_name} (question_no integer,question varchar(200) , difficulty varchar(15) ,choice integer, answer varchar(12) ,time decimal(20,17), hint varchar(200),code char(5),score integer)"
                 cursor.execute(create_query)
                 for i in user_responseList:
                     data_list=i
