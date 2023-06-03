@@ -3,7 +3,8 @@ from customtkinter import *
 from PIL import Image,ImageTk
 from MySQLfunctions import *
 from trivia import *
-import sc_questions
+from io import BytesIO
+from CTkMessagebox import CTkMessagebox
 global bg
 global photo1
 global photo2
@@ -17,13 +18,25 @@ set_default_color_theme("dark-blue")
 
 bg=PhotoImage(file="C:\\Users\\shaur\\OneDrive\\Desktop\\DS Project\\Images\\background2.png")
 
-# Get the entered username and password using get function
+#get the entered username and password using get function
 def login():
+    import re
+    global username
+    global rollno
+    rollno=""
     username = username_entry.get()
-    email = email_entry.get()
-    #write(username,email)
-    #root.withdraw()
-    mainmenu()
+    init_roll= rollno_entry.get()
+    if re.match(r"[^@]+@[^@]+\.[^@]+", init_roll):
+        for i in init_roll:
+            if (i=='@'):
+                break
+            else:
+                rollno=rollno+i
+        mainmenu()
+        
+    else:
+        click_ans=CTkMessagebox(title="Warning",  option_1="Cancel",message="Invalid Email",fade_in_duration=0.5,width=400,height=280,button_color="#0191C8",font=("helvetica",16))
+        
 
 def genre():
     import GK
@@ -103,12 +116,12 @@ CTkLabel(root, text="Username",anchor=CENTER,fg_color="#feaf88",width=100,height
 username_entry = CTkEntry(root,width=150,height=30,bg_color="#0b2954",text_color="#feaf88",font=("helvetica",16))
 username_entry.place(relx=0.47,rely=0.35)
 
-# Create email label and entry field
+#create email label and entry field
 CTkLabel(root, text="Email",anchor=CENTER,fg_color="#feaf88",width=100,height=30,font=("helvetica",16),corner_radius=20,text_color="#0b2954").place(relx=0.3,rely=0.45)
-email_entry = CTkEntry(root,width=150,height=30,bg_color="#0b2954",text_color="#feaf88", font=("helvetica",16),)
-email_entry.place(relx=0.47,rely=0.45)
+rollno_entry = CTkEntry(root,width=150,height=30,bg_color="#0b2954",text_color="#feaf88", font=("helvetica",16),)
+rollno_entry.place(relx=0.47,rely=0.45)
 
-# Create login button
+#create login button
 login_button = CTkButton(root, text="Login", command=login,fg_color="#7b27a1",border_width=1,border_color="#feaf88",height=35,width=105, font=("helvetica",17))
 login_button.place(relx=0.40,rely=0.54)
 
