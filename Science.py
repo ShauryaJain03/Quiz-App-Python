@@ -9,7 +9,6 @@ import requests
 import threading
 import MySQLfunctions
 from io import BytesIO
-
 quiz_ended=False
 hint_taken=False
 hint_count=0
@@ -131,7 +130,6 @@ def display_questions(window):
             user_responses.append([question_index,selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,hint_avail,code,score])
 
 
-
         clock_label.configure(text="Time: {:.2f} seconds".format(time_taken))  #updating the clock label
         print("Time: {:.3f} seconds".format(time_taken)+" , {} level ".format(difficulty))  #printing time data to terminal
 
@@ -178,12 +176,11 @@ def display_questions(window):
             print("Total Time: {:.3f} seconds".format(total_time))   #print total time
             print("Average time taken: {:.3f} seconds".format(total_time / 6))  #print average time
 
-            #print(user_responses)  
             #print user responses as individual tuples 
             for i in user_responses:
                 print(i,end="\n")
             end_quiz()
-            # window.destroy()
+            #window.destroy()
 
     #function to display the image 
     def display_image(img_url):
@@ -254,11 +251,13 @@ def science():
     start_btn = CTkButton(sciencespage, text="Start",height=60,width=120,command=lambda:display_questions(sciencespage),font=("helvetica",20)).place(x=280,y=600)
     sciencespage.mainloop()
 
+    #last question record in the table will have final score in the score column
     for i in user_responses:
         if (i[0]==12):
             i[8]=final_score
+
     for i in user_responses:
         print(i)
 
-    MySQLfunctions.insert_response("iec2022010",user_responses)
-science()
+    from userdata import roll
+    MySQLfunctions.insert_response(roll,"science",user_responses)
