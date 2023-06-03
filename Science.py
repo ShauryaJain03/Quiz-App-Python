@@ -9,6 +9,7 @@ import requests
 import threading
 import MySQLfunctions
 from io import BytesIO
+
 quiz_ended=False
 hint_taken=False
 hint_count=0
@@ -123,11 +124,11 @@ def display_questions(window):
 
         #the tuple for storing question , user response and time taken per question and other data to be written to the tables in the database
         if (difficulty=="hard" and hint_taken==True):
-            user_responses.append([selected_questions[question_index][0], difficulty,selected_option,answer,time_taken,"yes",code,score])
+            user_responses.append([question_index,selected_questions[question_index][0], difficulty,selected_option,answer,time_taken,"yes",code,score])
         elif(difficulty=="hard" and hint_taken==False):
-            user_responses.append([selected_questions[question_index][0],  difficulty,selected_option,answer,time_taken,"no",code,score])
+            user_responses.append([question_index,selected_questions[question_index][0],  difficulty,selected_option,answer,time_taken,"no",code,score])
         else:
-            user_responses.append([selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,hint_avail,code,score])
+            user_responses.append([question_index,selected_questions[question_index][0], difficulty, selected_option,answer,time_taken,hint_avail,code,score])
 
 
 
@@ -144,22 +145,24 @@ def display_questions(window):
         nonlocal total_time  #this inherits the value from check_answer function
         if question_index < len(selected_questions) - 1:
             question_index += 1
-            question_label.configure(text="Q{}. ".format(question_index) + selected_questions[question_index][0])
+            question_label.configure(text="Q{}. ".format(question_index) + selected_questions[question_index][0])      #configure the question label to display the question
             options.set(-1)
 
-            #if question is hard then display 
+            #if question is hard then make hint button active
             if (selected_questions[question_index][3]=="hard"):
                 hint_btn.configure(state=ACTIVE,command=show_hint)
                 global hint_hard
                 hint_hard=selected_questions[question_index][4]            
 
+            #configure the options with each question
             for i, option in enumerate(option_buttons):
                 option.configure(text=selected_questions[question_index][2][i])
 
             start_time = time.time()  # Starts timer from 0 after each question
-            if question_index==10:    #toggles the button text at the last question
+            if question_index==12:    #toggles the button text at the last question
                 check_button.configure(text="End")
 
+            #displaying the image with each image based question
             if selected_questions[question_index][3] == "image":
                 hint_btn.configure(state=DISABLED,command=show_hint)
                 img_path = selected_questions[question_index][4]
@@ -182,7 +185,7 @@ def display_questions(window):
             end_quiz()
             # window.destroy()
 
-
+    #function to display the image 
     def display_image(img_url):
         response = requests.get(img_url)
         image_data = response.content
@@ -252,11 +255,10 @@ def science():
     sciencespage.mainloop()
 
     for i in user_responses:
-        if i[1]=="image":
-            i[7]=final_score
+        if (i[0]==12):
+            i[8]=final_score
     for i in user_responses:
         print(i)
 
     MySQLfunctions.insert_response("iec2022010",user_responses)
-
 science()
